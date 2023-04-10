@@ -3,11 +3,11 @@
 public class Shift
 {
     public int Id { get; set; }
-    public DateTime start { get; set; }
-    public DateTime end { get; set; }
+    public DateTime Start { get; set; }
+    public DateTime End { get; set; }
 
     public TimeSpan duration()
     {
-        return end - start;
+        return End - Start;
     }
 }
