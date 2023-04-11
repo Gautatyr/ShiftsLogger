@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ShiftContext>(opt =>
-    opt.UseInMemoryDatabase("ShiftsLogger"));
+    opt.UseSqlServer(System.Configuration.ConfigurationManager.AppSettings.Get("ConnectionString")));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
