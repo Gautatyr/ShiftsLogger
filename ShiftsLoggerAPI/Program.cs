@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ShiftsLoggerAPI.Models;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
