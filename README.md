@@ -4,7 +4,8 @@ The project contains both an API to contact the database, and a console applicat
 
 # Features
 ## API
-- API handling the comunication with the SQL Server Database.
+- Creates the SQL Database on startup if it doesn't exists.
+- Handles the comunication with the database.
 
 ## Console Based UI
 - Console UI consuming the API.
