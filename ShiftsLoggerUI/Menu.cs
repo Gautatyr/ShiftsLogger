@@ -11,11 +11,13 @@ public static class Menu
     public static void MainMenu(string error = "")
     {
         Console.Clear();
+        Console.WriteLine("\nMAIN MENU\n");
+        DisplayShifts();
         if (!string.IsNullOrEmpty(error)) DisplayError(error);
 
-        Console.WriteLine("\nMAIN MENU\n");
-        Console.WriteLine("- Type 1 to Add a new Shift");
-        Console.WriteLine("- Type 2 to View all Shifts");
+        Console.WriteLine("\n- Type 1 to Add a new Shift");
+        Console.WriteLine("- Type 2 to Update a shift");
+        Console.WriteLine("- Type 3 to Delete a shift");
         Console.WriteLine("- Type 0 to Close the Application");
 
         switch (GetNumberInput())
@@ -25,62 +27,26 @@ public static class Menu
                 break;
             case 1:
                 AddShiftMenu();
-                ViewAllShifts();
                 break;
             case 2:
-                ViewAllShifts();
+                UpdateShiftMenu();
+                break;
+            case 3:
+                DeleteShiftMenu();
                 break;
             default:
-                error = "Wrong input ! Please type a number between 0 and 2";
+                error = "Wrong input ! Please type a number between 0 and 3";
                 MainMenu(error);
                 break;
         }
-    }
 
-    private static void ViewAllShifts(string error = "")
-    {
-        Console.Clear();
-        DisplayShifts();
-        if (!string.IsNullOrEmpty(error)) DisplayError(error);
-
-        Console.WriteLine("- Type 1 to Update a shift");
-        Console.WriteLine("- Type 2 to Delete a Shift");
-        Console.WriteLine("- Type 0 to go back");
-
-        switch (GetNumberInput())
-        {
-            case 0:
-                MainMenu();
-                break;
-            case 1:
-                Console.WriteLine("\nType in the id of the shift you wish to Udpate\n");
-                int id = GetShiftIdInput();
-                Console.WriteLine("\nEnter the shift's starting time (Format: hh:MM)\n");
-                DateTime shiftStart = GetShiftInput();
-                Console.WriteLine("\nEnter the shift's ending time (Format: hh:MM)\n");
-                DateTime shiftEnd = GetShiftInput();
-
-                UpdateShift(id, shiftStart, shiftEnd);
-                break;
-            case 2:
-                Console.WriteLine("\nType in the id of the shift you wish to Delete\n");
-                id = GetShiftIdInput();
-
-                DeleteShift(id);
-                break;
-            default:
-                error = "Wrong input ! Please type a number between 0 and 2";
-                ViewAllShifts(error);
-                break;
-        }
-
-        ViewAllShifts();
+        MainMenu();
     }
 
     private static void DisplayShifts()
     {
         List<Shift> unformatedShifts = GetShifts().Result;
-        List<ShiftDTODisplay> formatedShifts = new List<ShiftDTODisplay>();
+        List<ShiftDTODisplay> formatedShifts = new();
         
         foreach (Shift shift in unformatedShifts)
         {
@@ -117,5 +83,25 @@ public static class Menu
         DateTime shiftEnd = GetShiftInput();
 
         CreateShift(shiftStart, shiftEnd);
+    }
+
+    private static void UpdateShiftMenu()
+    {
+        Console.WriteLine("\nType in the id of the shift you wish to Udpate\n");
+        int id = GetShiftIdInput();
+        Console.WriteLine("\nEnter the shift's starting time (Format: hh:MM)\n");
+        DateTime shiftStart = GetShiftInput();
+        Console.WriteLine("\nEnter the shift's ending time (Format: hh:MM)\n");
+        DateTime shiftEnd = GetShiftInput();
+
+        UpdateShift(id, shiftStart, shiftEnd);
+    }
+
+    private static void DeleteShiftMenu()
+    {
+        Console.WriteLine("\nType in the id of the shift you wish to Delete\n");
+        int id = GetShiftIdInput();
+
+        DeleteShift(id);
     }
 }
