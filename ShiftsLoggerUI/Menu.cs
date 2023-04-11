@@ -59,7 +59,7 @@ public static class Menu
 
                 Shift shift = new Shift(id, shiftStart, shiftEnd);
 
-                UpdateShift(id, shift);
+                //UpdateShift(id, shift);
                 break;
             case 2:
                 id = GetShiftIdInput();
