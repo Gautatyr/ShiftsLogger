@@ -10,37 +10,42 @@ public static class Menu
 {
     public static async void MainMenu(string error = "")
     {
-        Console.Clear();
-        Console.WriteLine("\nMAIN MENU\n");
-        await DisplayShifts();
-        if (!string.IsNullOrEmpty(error)) DisplayError(error);
+        int menuLoop;
 
-        Console.WriteLine("\n- Type 1 to Add a new Shift");
-        Console.WriteLine("- Type 2 to Update a shift");
-        Console.WriteLine("- Type 3 to Delete a shift");
-        Console.WriteLine("- Type 0 to Close the Application");
-
-        switch (GetNumberInput())
+        do
         {
-            case 0:
-                Environment.Exit(0);
-                break;
-            case 1:
-                AddShiftMenu();
-                break;
-            case 2:
-                UpdateShiftMenu();
-                break;
-            case 3:
-                DeleteShiftMenu();
-                break;
-            default:
-                error = "Wrong input ! Please type a number between 0 and 3";
-                MainMenu(error);
-                break;
-        }
+            Console.Clear();
+            Console.WriteLine("\nMAIN MENU\n");
+            await DisplayShifts();
+            if (!string.IsNullOrEmpty(error)) DisplayError(error);
 
-        MainMenu();
+            Console.WriteLine("\n- Type 1 to Add a new Shift");
+            Console.WriteLine("- Type 2 to Update a shift");
+            Console.WriteLine("- Type 3 to Delete a shift");
+            Console.WriteLine("- Type 0 to Close the Application");
+
+            menuLoop = GetNumberInput();
+
+            switch (menuLoop)
+            {
+                case 0:
+                    Environment.Exit(0);
+                    break;
+                case 1:
+                    AddShiftMenu();
+                    break;
+                case 2:
+                    UpdateShiftMenu();
+                    break;
+                case 3:
+                    DeleteShiftMenu();
+                    break;
+                default:
+                    error = "Wrong input ! Please type a number between 0 and 3";
+                    MainMenu(error);
+                    break;
+            }
+        } while (menuLoop != 0);
     }
 
     private static async Task DisplayShifts()
