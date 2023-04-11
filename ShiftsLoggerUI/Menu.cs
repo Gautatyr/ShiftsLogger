@@ -55,17 +55,18 @@ public static class Menu
                 MainMenu();
                 break;
             case 1:
+                Console.WriteLine("\nType in the id of the shift you wish to Udpate\n");
                 int id = GetShiftIdInput();
                 DateTime shiftStart = GetShiftInput("\nEnter the shift's starting time (Format: hh:MM)\n");
                 DateTime shiftEnd = GetShiftInput("\nEnter the shift's ending time (Format: hh:MM)\n");
 
-                Shift shift = new Shift(id, shiftStart, shiftEnd);
-
-                //UpdateShift(id, shift);
+                UpdateShift(id, shiftStart, shiftEnd);
                 break;
             case 2:
+                Console.WriteLine("\nType in the id of the shift you wish to Delete\n");
                 id = GetShiftIdInput();
-                //DeleteShift(id);
+
+                DeleteShift(id);
                 break;
             default:
                 error = "Wrong input ! Please type a number between 0 and 2";

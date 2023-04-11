@@ -75,4 +75,35 @@ public static class InterfaceApi
         var response = await client.PostAsync(api_url, httpContent);
         return response;
     }
+
+    public static async Task<HttpResponseMessage> UpdateShift(int id, DateTime start, DateTime end)
+    {
+        var shift = new ShiftDTO
+        {
+            Id = id,
+            Start = start,
+            End = end
+        };
+
+        var jsonString = JsonSerializer.Serialize(shift);
+        var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+        using HttpClient client = new HttpClient();
+
+        string api_url = $"https://localhost:7060/api/Shifts/{id}";
+
+        var response = await client.PutAsync(api_url, httpContent);
+        return response;
+    }
+
+
+    public static async Task<HttpResponseMessage> DeleteShift(int id)
+    {
+        using HttpClient client = new HttpClient();
+
+        string api_url = $"https://localhost:7060/api/Shifts/{id}";
+
+        var response = await client.DeleteAsync(api_url);
+        return response;
+    }
 }
