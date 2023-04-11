@@ -54,14 +54,14 @@ public static class DataValidation
 
         string input = Console.ReadLine();
 
-        while(!DateTime.TryParseExact(input, "hh:MM", System.Globalization.CultureInfo.InvariantCulture,
+        while(!DateTime.TryParseExact(input, "HH:mm", System.Globalization.CultureInfo.InvariantCulture,
         System.Globalization.DateTimeStyles.None, out _))
         {
             DisplayError("Invalid Format, try again");
             input = Console.ReadLine();
         }
 
-        DateTime shift = DateTime.ParseExact(input, "hh:MM", System.Globalization.CultureInfo.InvariantCulture,
+        DateTime shift = DateTime.ParseExact(input, "HH:mm", System.Globalization.CultureInfo.InvariantCulture,
                                              System.Globalization.DateTimeStyles.None);
 
         return shift;

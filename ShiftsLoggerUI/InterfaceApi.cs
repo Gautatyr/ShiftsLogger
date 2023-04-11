@@ -1,7 +1,9 @@
 ﻿using System.Net;
 using System.Net.Http.Headers;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using ShiftsLoggerUI.Models;
 
 
@@ -53,5 +55,24 @@ public static class InterfaceApi
         }
 
         return shift;
+    }
+
+    public static async Task<HttpResponseMessage> CreateShift(DateTime start, DateTime end)
+    {
+        var shift = new ShiftDTO
+        {
+            Start = start,
+            End = end
+        };
+
+        var jsonString = JsonSerializer.Serialize(shift);
+        var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+        using HttpClient client = new HttpClient();
+        
+        string api_url = $"https://localhost:7060/api/Shifts";
+
+        var response = await client.PostAsync(api_url, httpContent);
+        return response;
     }
 }

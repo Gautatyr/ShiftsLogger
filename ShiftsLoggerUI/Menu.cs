@@ -3,15 +3,16 @@ using static ShiftsLoggerUI.DataValidation;
 using static ShiftsLoggerUI.InterfaceApi;
 using ShiftsLoggerUI.Models;
 using ConsoleTableExt;
+using System.Globalization;
 
 namespace ShiftsLoggerUI;
 
 public static class Menu
 {
-    public static void MainMenu(string message = "")
+    public static void MainMenu(string error = "")
     {
         Console.Clear();
-        Console.WriteLine(message);
+        if (!string.IsNullOrEmpty(error)) DisplayError(error);
 
         Console.WriteLine("\nMAIN MENU\n");
         Console.WriteLine("- Type 1 to Add a new Shift");
@@ -25,22 +26,23 @@ public static class Menu
                 break;
             case 1:
                 AddShiftMenu();
+                ViewAllShifts();
                 break;
             case 2:
                 ViewAllShifts();
                 break;
             default:
-                string error = "Wrong input ! Please type a number between 0 and 2";
-                MainMenu(DisplayError(error));
+                error = "Wrong input ! Please type a number between 0 and 2";
+                MainMenu(error);
                 break;
         }
     }
 
-    private static void ViewAllShifts(string message = "")
+    private static void ViewAllShifts(string error = "")
     {
         Console.Clear();
         DisplayShifts();
-        Console.WriteLine(message);
+        if (!string.IsNullOrEmpty(error)) DisplayError(error);
 
         Console.WriteLine("\nMAIN MENU\n");
         Console.WriteLine("- Type 1 to Update a shift");
@@ -66,8 +68,8 @@ public static class Menu
                 //DeleteShift(id);
                 break;
             default:
-                string error = "Wrong input ! Please type a number between 0 and 2";
-                ViewAllShifts(DisplayError(error));
+                error = "Wrong input ! Please type a number between 0 and 2";
+                ViewAllShifts(error);
                 break;
         }
 
@@ -76,8 +78,33 @@ public static class Menu
 
     private static void DisplayShifts()
     {
+        List<Shift> unformatedShifts = GetShifts().Result;
+        List<ShiftDTODisplay> formatedShifts = new List<ShiftDTODisplay>();
+        
+        foreach (Shift shift in unformatedShifts)
+        {
+            formatedShifts.Add(new ShiftDTODisplay
+            {
+                Id = shift.Id,
+                Start = shift.Start.ToString("HH:mm"),
+                End = shift.End.ToString("HH:mm"),
+            });
+
+            if (shift.End < shift.Start)
+            {
+                TimeSpan day = TimeSpan.Parse("24:00:00");
+                TimeSpan dif = shift.Start - shift.End;
+                var temp = (day - dif).ToString();
+                formatedShifts.Last().Duration = temp.Substring(3);
+            }
+            else
+            {
+                formatedShifts.Last().Duration = (shift.End - shift.Start).ToString();
+            }
+        }
+
         ConsoleTableBuilder
-                .From(GetShifts().Result)
+                .From(formatedShifts)
                 .ExportAndWriteLine();
     }
 
@@ -95,6 +122,9 @@ public static class Menu
 
     private static void AddShiftMenu()
     {
-        throw new NotImplementedException();
+        DateTime shiftStart = GetShiftInput("\nEnter the shift's starting time (Format: HH:mm)\n");
+        DateTime shiftEnd = GetShiftInput("\nEnter the shift's ending time (Format: HH:mm)\n");
+
+        CreateShift(shiftStart, shiftEnd);
     }
 }

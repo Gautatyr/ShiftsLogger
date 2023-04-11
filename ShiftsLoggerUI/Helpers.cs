@@ -4,11 +4,11 @@ namespace ShiftsLoggerUI;
 
 public static class Helpers
 {
-    public static string DisplayError(string error)
+    public static void DisplayError(string error)
     {
         string arrowLeft = "\n|---> ";
         string arrowRight = " <---|\n";
-        return $"{arrowLeft} {error} {arrowRight}";
+        Console.WriteLine($"{arrowLeft} {error} {arrowRight}");
     }
 
     public static bool ShiftExists(int id)
