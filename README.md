@@ -3,7 +3,7 @@ Application allowing the user to save working shifts inside a database and get t
 The project contains both an API to contact the database, and a console application to comsume it.
 
 # Features
-# API
+## API
 - API handling the comunication with the SQL Server Database.
 
 ## Console Based UI
