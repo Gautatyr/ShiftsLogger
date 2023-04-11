@@ -8,11 +8,11 @@ namespace ShiftsLoggerUI;
 
 public static class Menu
 {
-    public static void MainMenu(string error = "")
+    public static async void MainMenu(string error = "")
     {
         Console.Clear();
         Console.WriteLine("\nMAIN MENU\n");
-        DisplayShifts();
+        await DisplayShifts();
         if (!string.IsNullOrEmpty(error)) DisplayError(error);
 
         Console.WriteLine("\n- Type 1 to Add a new Shift");
@@ -43,7 +43,7 @@ public static class Menu
         MainMenu();
     }
 
-    private static void DisplayShifts()
+    private static async Task DisplayShifts()
     {
         List<Shift> unformatedShifts = GetShifts().Result;
         List<ShiftDTODisplay> formatedShifts = new();
