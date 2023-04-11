@@ -1,11 +1,7 @@
-﻿using System.Net;
-using System.Net.Http.Headers;
-using System.Runtime.Serialization;
+﻿using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using ShiftsLoggerUI.Models;
-
 
 namespace ShiftsLoggerUI;
 
@@ -19,17 +15,9 @@ public static class InterfaceApi
 
         string api_url = $"https://localhost:7060/api/Shifts";
 
-        var shifts = await ProcessQueryAsync(client, api_url);
+        await using Stream stream = await client.GetStreamAsync(api_url);
 
-        async Task<List<Shift>> ProcessQueryAsync(HttpClient client, string api_url)
-        {
-            await using Stream stream =
-                await client.GetStreamAsync(api_url);
-            var shifts =
-                await JsonSerializer.DeserializeAsync<List<Shift>>(stream);
-
-            return shifts;
-        }
+        var shifts = await JsonSerializer.DeserializeAsync<List<Shift>>(stream);
 
         return shifts;
     }
@@ -42,17 +30,9 @@ public static class InterfaceApi
 
         string api_url = $"https://localhost:7060/api/Shifts/{id}";
 
-        var shift = await ProcessQueryAsync(client, api_url);
+        await using Stream stream = await client.GetStreamAsync(api_url);
 
-        async Task<Shift> ProcessQueryAsync(HttpClient client, string api_url)
-        {
-            await using Stream stream =
-                await client.GetStreamAsync(api_url);
-            var shift =
-                await JsonSerializer.DeserializeAsync<Shift>(stream);
-
-            return shift;
-        }
+        var shift = await JsonSerializer.DeserializeAsync<Shift>(stream);
 
         return shift;
     }

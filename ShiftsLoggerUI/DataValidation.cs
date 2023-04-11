@@ -4,54 +4,47 @@ namespace ShiftsLoggerUI;
 
 public static class DataValidation
 {
-    public static int GetNumberInput(string message = "")
-    {
-        if (message != "") Console.WriteLine(message);
-
+    public static int GetNumberInput()
+    {        
         string userInput = Console.ReadLine();
         int number;
 
         while (!int.TryParse(userInput, out number))
         {
-            string error = $"{userInput} is not a valid number. Please try again.";
-            DisplayError(error);
+            DisplayError($"{userInput} is not a valid number. Please try again.");
             userInput = Console.ReadLine();
         }
         return number;
     }
 
-    public static string GetTextInput(string message = "")
+    public static string GetTextInput()
     {
-        Console.WriteLine(message);
         string textInput = Console.ReadLine();
 
         while (string.IsNullOrEmpty(textInput))
         {
-            DisplayError("Input can't be empty !");
-            Console.WriteLine(message);
+            DisplayError("Input can't be empty, try again");
             textInput = Console.ReadLine();
         }
 
         return textInput;
     }
 
-    public static int GetShiftIdInput(string message = "")
+    public static int GetShiftIdInput()
     {
-        int id = GetNumberInput(message);
+        int id = GetNumberInput();
 
         while (!ShiftExists(id))
         {
-            DisplayError($"The ID: {id} is invalid.");
-            id = GetNumberInput(message);
+            DisplayError($"The ID: {id} is invalid, try again");
+            id = GetNumberInput();
         }
 
         return id;
     }
 
-    public static DateTime GetShiftInput(string message = "")
+    public static DateTime GetShiftInput()
     {
-        Console.WriteLine(message);
-
         string input = Console.ReadLine();
 
         while(!DateTime.TryParseExact(input, "HH:mm", System.Globalization.CultureInfo.InvariantCulture,

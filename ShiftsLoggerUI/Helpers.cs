@@ -6,9 +6,7 @@ public static class Helpers
 {
     public static void DisplayError(string error)
     {
-        string arrowLeft = "\n|---> ";
-        string arrowRight = " <---|\n";
-        Console.WriteLine($"{arrowLeft} {error} {arrowRight}");
+        Console.WriteLine($"\n|--->  {error}  <---|\n");
     }
 
     public static bool ShiftExists(int id)

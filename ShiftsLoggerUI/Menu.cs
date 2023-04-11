@@ -3,7 +3,6 @@ using static ShiftsLoggerUI.DataValidation;
 using static ShiftsLoggerUI.InterfaceApi;
 using ShiftsLoggerUI.Models;
 using ConsoleTableExt;
-using System.Globalization;
 
 namespace ShiftsLoggerUI;
 
@@ -44,7 +43,6 @@ public static class Menu
         DisplayShifts();
         if (!string.IsNullOrEmpty(error)) DisplayError(error);
 
-        Console.WriteLine("\nMAIN MENU\n");
         Console.WriteLine("- Type 1 to Update a shift");
         Console.WriteLine("- Type 2 to Delete a Shift");
         Console.WriteLine("- Type 0 to go back");
@@ -57,8 +55,10 @@ public static class Menu
             case 1:
                 Console.WriteLine("\nType in the id of the shift you wish to Udpate\n");
                 int id = GetShiftIdInput();
-                DateTime shiftStart = GetShiftInput("\nEnter the shift's starting time (Format: hh:MM)\n");
-                DateTime shiftEnd = GetShiftInput("\nEnter the shift's ending time (Format: hh:MM)\n");
+                Console.WriteLine("\nEnter the shift's starting time (Format: hh:MM)\n");
+                DateTime shiftStart = GetShiftInput();
+                Console.WriteLine("\nEnter the shift's ending time (Format: hh:MM)\n");
+                DateTime shiftEnd = GetShiftInput();
 
                 UpdateShift(id, shiftStart, shiftEnd);
                 break;
@@ -109,22 +109,12 @@ public static class Menu
                 .ExportAndWriteLine();
     }
 
-    private static void DisplayShift(int id)
-    {
-        List<Shift> shift = new List<Shift>
-        {
-            GetShift(id).Result
-        };
-
-        ConsoleTableBuilder
-                .From(shift)
-                .ExportAndWriteLine();
-    }
-
     private static void AddShiftMenu()
     {
-        DateTime shiftStart = GetShiftInput("\nEnter the shift's starting time (Format: HH:mm)\n");
-        DateTime shiftEnd = GetShiftInput("\nEnter the shift's ending time (Format: HH:mm)\n");
+        Console.WriteLine("\nEnter the shift's starting time (Format: HH:mm)\n");
+        DateTime shiftStart = GetShiftInput();
+        Console.WriteLine("\nEnter the shift's ending time (Format: HH:mm)\n");
+        DateTime shiftEnd = GetShiftInput();
 
         CreateShift(shiftStart, shiftEnd);
     }
