@@ -78,9 +78,9 @@ public static class Menu
     private static void AddShiftMenu()
     {
         Console.WriteLine("\nEnter the shift's starting time (Format: HH:mm)\n");
-        DateTime shiftStart = GetShiftInput();
+        var shiftStart = GetShiftInput();
         Console.WriteLine("\nEnter the shift's ending time (Format: HH:mm)\n");
-        DateTime shiftEnd = GetShiftInput();
+        var shiftEnd = GetShiftInput();
 
         CreateShift(shiftStart, shiftEnd);
     }
@@ -88,11 +88,11 @@ public static class Menu
     private static void UpdateShiftMenu()
     {
         Console.WriteLine("\nType in the id of the shift you wish to Udpate\n");
-        int id = GetShiftIdInput();
+        var id = GetShiftIdInput();
         Console.WriteLine("\nEnter the shift's starting time (Format: hh:MM)\n");
-        DateTime shiftStart = GetShiftInput();
+        var shiftStart = GetShiftInput();
         Console.WriteLine("\nEnter the shift's ending time (Format: hh:MM)\n");
-        DateTime shiftEnd = GetShiftInput();
+        var shiftEnd = GetShiftInput();
 
         UpdateShift(id, shiftStart, shiftEnd);
     }
@@ -100,7 +100,7 @@ public static class Menu
     private static void DeleteShiftMenu()
     {
         Console.WriteLine("\nType in the id of the shift you wish to Delete\n");
-        int id = GetShiftIdInput();
+        var id = GetShiftIdInput();
 
         DeleteShift(id);
     }

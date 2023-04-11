@@ -6,7 +6,7 @@ public static class DataValidation
 {
     public static int GetNumberInput()
     {        
-        string userInput = Console.ReadLine();
+        var userInput = Console.ReadLine();
         int number;
 
         while (!int.TryParse(userInput, out number))
@@ -14,12 +14,13 @@ public static class DataValidation
             DisplayError($"{userInput} is not a valid number. Please try again.");
             userInput = Console.ReadLine();
         }
+
         return number;
     }
 
     public static string GetTextInput()
     {
-        string textInput = Console.ReadLine();
+        var textInput = Console.ReadLine();
 
         while (string.IsNullOrEmpty(textInput))
         {
@@ -32,7 +33,7 @@ public static class DataValidation
 
     public static int GetShiftIdInput()
     {
-        int id = GetNumberInput();
+        var id = GetNumberInput();
 
         while (!ShiftExists(id))
         {
@@ -45,7 +46,7 @@ public static class DataValidation
 
     public static DateTime GetShiftInput()
     {
-        string input = Console.ReadLine();
+        var input = Console.ReadLine();
 
         while(!DateTime.TryParseExact(input, "HH:mm", System.Globalization.CultureInfo.InvariantCulture,
         System.Globalization.DateTimeStyles.None, out _))
@@ -54,7 +55,7 @@ public static class DataValidation
             input = Console.ReadLine();
         }
 
-        DateTime shift = DateTime.ParseExact(input, "HH:mm", System.Globalization.CultureInfo.InvariantCulture,
+        var shift = DateTime.ParseExact(input, "HH:mm", System.Globalization.CultureInfo.InvariantCulture,
                                              System.Globalization.DateTimeStyles.None);
 
         return shift;

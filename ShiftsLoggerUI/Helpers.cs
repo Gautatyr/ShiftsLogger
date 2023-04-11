@@ -11,7 +11,7 @@ public static class Helpers
 
     public static bool ShiftExists(int id)
     {
-        bool exists = false;
+        var exists = false;
 
         if (GetShift(id) != null) exists = true;
 

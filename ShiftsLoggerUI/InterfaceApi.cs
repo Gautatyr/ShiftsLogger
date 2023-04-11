@@ -9,11 +9,11 @@ public static class InterfaceApi
 {
     public static async Task<List<Shift>> GetShifts()
     {
-        using HttpClient client = new HttpClient();
+        using HttpClient client = new();
         client.DefaultRequestHeaders.Accept.Clear();
         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-        string api_url = $"https://localhost:7060/api/Shifts";
+        var api_url = $"https://localhost:7060/api/Shifts";
 
         await using Stream stream = await client.GetStreamAsync(api_url);
 
@@ -24,11 +24,11 @@ public static class InterfaceApi
 
     public static async Task<Shift> GetShift(int id)
     {
-        using HttpClient client = new HttpClient();
+        using HttpClient client = new();
         client.DefaultRequestHeaders.Accept.Clear();
         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-        string api_url = $"https://localhost:7060/api/Shifts/{id}";
+        var api_url = $"https://localhost:7060/api/Shifts/{id}";
 
         await using Stream stream = await client.GetStreamAsync(api_url);
 
@@ -48,9 +48,9 @@ public static class InterfaceApi
         var jsonString = JsonSerializer.Serialize(shift);
         var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
-        using HttpClient client = new HttpClient();
+        using HttpClient client = new();
         
-        string api_url = $"https://localhost:7060/api/Shifts";
+        var api_url = $"https://localhost:7060/api/Shifts";
 
         var response = await client.PostAsync(api_url, httpContent);
         return response;
@@ -68,9 +68,9 @@ public static class InterfaceApi
         var jsonString = JsonSerializer.Serialize(shift);
         var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
-        using HttpClient client = new HttpClient();
+        using HttpClient client = new();
 
-        string api_url = $"https://localhost:7060/api/Shifts/{id}";
+        var api_url = $"https://localhost:7060/api/Shifts/{id}";
 
         var response = await client.PutAsync(api_url, httpContent);
         return response;
@@ -79,9 +79,9 @@ public static class InterfaceApi
 
     public static async Task<HttpResponseMessage> DeleteShift(int id)
     {
-        using HttpClient client = new HttpClient();
+        using HttpClient client = new();
 
-        string api_url = $"https://localhost:7060/api/Shifts/{id}";
+        var api_url = $"https://localhost:7060/api/Shifts/{id}";
 
         var response = await client.DeleteAsync(api_url);
         return response;
