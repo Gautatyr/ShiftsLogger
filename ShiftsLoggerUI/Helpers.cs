@@ -13,7 +13,11 @@ public static class Helpers
     {
         var exists = false;
 
-        if (GetShift(id) != null) exists = true;
+        try
+        {
+            if (GetShift(id).Result != null) exists = true;
+        }  
+        catch { }
 
         return exists;
     }
